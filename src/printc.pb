@@ -30,6 +30,8 @@
             Print(sym)
             ConsoleColor(7, 0)
         Next i
+        
+        PrintN("")
     EndProcedure
 EndModule
 ; IDE Options = PureBasic 6.10 LTS (Windows - x64)

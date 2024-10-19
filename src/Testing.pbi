@@ -1,4 +1,9 @@
-﻿DeclareModule Testing
+﻿IncludeFile "printc.pbi"
+
+
+DeclareModule Testing
+    #TESTING_USE_CONSOLE = #True
+    
     Prototype testing_unit_t()
     
     Macro __qot
@@ -32,6 +37,14 @@
         Testing::_RunAll()
     EndMacro
     
+    Macro _printc(text)
+        CompilerIf Defined(TESTING_USE_CONSOLE, #PB_Constant)
+            PrintC::printc(text)
+        CompilerElse
+            Debug text
+        CompilerEndIf
+    EndMacro
+    
     Declare AddTestingUnit(*p_unit.testing_unit_t, test_name.s)
     Declare _Run(unit_name.s)
     Declare _RunAll()
@@ -40,7 +53,7 @@
     Macro Assert(expression, description = "")
         If Not expression
             If Len(description)
-                Debug "Assertion failed: Assert(" + __qot#expression#__qot + ") at line " + Str(#PB_Compiler_Line) + " (" + description + ")"
+                _printc("Assertion failed: Assert(" + __qot#expression#__qot + ") at line " + Str(#PB_Compiler_Line) + " (" + description + ")")
             EndIf
             
             ProcedureReturn #False
@@ -50,7 +63,7 @@ EndDeclareModule
 
 IncludeFile "testing.pb"
 ; IDE Options = PureBasic 6.10 LTS (Windows - x64)
-; CursorPosition = 50
-; FirstLine = 27
+; CursorPosition = 63
+; FirstLine = 40
 ; Folding = --
 ; DPIAware
