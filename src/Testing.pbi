@@ -48,9 +48,9 @@
     EndMacro
 EndDeclareModule
 
-IncludeFile "Testing.pb"
+IncludeFile "testing.pb"
 ; IDE Options = PureBasic 6.10 LTS (Windows - x64)
 ; CursorPosition = 50
-; FirstLine = 21
+; FirstLine = 27
 ; Folding = --
 ; DPIAware
