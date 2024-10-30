@@ -103,7 +103,6 @@ EndDeclareModule
 
 IncludeFile "testing.pb"
 ; IDE Options = PureBasic 6.10 LTS (Windows - x64)
-; CursorPosition = 93
-; FirstLine = 72
+; CursorPosition = 9
 ; Folding = ---
 ; DPIAware

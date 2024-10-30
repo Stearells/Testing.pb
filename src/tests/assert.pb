@@ -59,9 +59,25 @@ Test(AssertRange)
     AssertInRange(2, 4, 1)
 EndTest(AssertRange)
 
+
+Test(MemoryAlloc)
+    *pMem = AllocateMemory(5)
+    Assert(*pMem <> #nullptr)
+    
+    *pMem2 = AllocateMemory(5)
+    Assert(*pMem2 <> #nullptr)
+    
+    PokeB(*pMem + 2, 123)
+    PokeB(*pMem2 + 2, 123)
+    Assert(CompareMemory(*pMem, *pMem2, MemorySize(*pMem)), "Memory is not equal")
+    
+    FreeMemory(*pMem)
+    FreeMemory(*pMem2)
+EndTest(MemoryAlloc)
+
 RunAll()
 Input()
 ; IDE Options = PureBasic 6.10 LTS (Windows - x64)
-; CursorPosition = 60
-; FirstLine = 31
+; CursorPosition = 63
+; FirstLine = 44
 ; DPIAware
