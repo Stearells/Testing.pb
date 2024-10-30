@@ -72,7 +72,6 @@ Module Testing
     EndProcedure
 EndModule
 ; IDE Options = PureBasic 6.10 LTS (Windows - x64)
-; CursorPosition = 59
-; FirstLine = 40
+; CursorPosition = 4
 ; Folding = --
 ; DPIAware
