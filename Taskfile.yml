@@ -1,0 +1,112 @@
+# ============================================================================
+#  Testing.pb - Taskfile
+#
+#  Invoke with `task` (go-task, version 3+).
+#
+#  Variables can be passed after the task name or exported in the environment:
+#      task test PB_BACKEND=fasm
+#      PB_BACKEND=fasm task test          (bash)
+#      $env:PB_BACKEND = 'fasm'; task test (PowerShell)
+#
+#  Compiler paths are optional. Leave a variable empty to auto-detect that
+#  compiler; missing auto-detected compilers are skipped. A non-empty path may
+#  point to the executable or to its directory. An explicit path that does not
+#  exist is reported as a test failure.
+#
+#  Examples:
+#      task test
+#      task test PB_X64="C:\PureBasic\Compilers\pbcompiler.exe"
+#      task test PB_X64="C:\PB" PB_C64="C:\PB"
+#      task test PB_UNIX="/opt/purebasic/compilers/pbcompiler"
+#      task test PB_BACKEND=fasm
+#      task fasm
+#      task c
+#      task x64
+#      task x86
+#      task clean
+#
+#  The full suite is the same one implemented by run-tests.ps1 and
+#  run-tests.sh: all self-tests, negative cases, reports, ASCII/Unicode checks,
+#  directives, hook behavior, repeatability and all examples.
+# ============================================================================
+
+version: '3'
+
+tasks:
+  default:
+    desc: Run the complete suite on every available compiler
+    cmds:
+      - task: test
+
+  test:
+    desc: Self-tests, examples, reports and output checks on available compilers
+    cmds:
+      - task: test:windows
+        platforms: [windows]
+        vars:
+          PB_ARCH: '{{.PB_ARCH | default "both"}}'
+          PB_BACKEND: '{{.PB_BACKEND | default "both"}}'
+          PB_X64: '{{.PB_X64}}'
+          PB_X86: '{{.PB_X86}}'
+          PB_C64: '{{.PB_C64}}'
+          PB_C86: '{{.PB_C86}}'
+      - task: test:unix
+        platforms: [linux, darwin]
+        vars:
+          PB_ARCH: '{{.PB_ARCH | default "both"}}'
+          PB_BACKEND: '{{.PB_BACKEND | default "both"}}'
+          PB_UNIX: '{{.PB_UNIX}}'
+          PB_UNIX_C: '{{.PB_UNIX_C}}'
+
+  test:windows:
+    internal: true
+    platforms: [windows]
+    cmds:
+      - powershell -NoProfile -ExecutionPolicy Bypass -File ./run-tests.ps1 -Architecture "{{.PB_ARCH | default "both"}}" -Backend "{{.PB_BACKEND | default "both"}}" -CompilerX64 "{{.PB_X64}}" -CompilerX86 "{{.PB_X86}}" -CompilerC64 "{{.PB_C64}}" -CompilerC86 "{{.PB_C86}}"
+
+  test:unix:
+    internal: true
+    platforms: [linux, darwin]
+    cmds:
+      - cmd: PB_COMPILER="{{.PB_UNIX}}" PB_COMPILER_C="{{.PB_UNIX_C}}" PB_BACKEND="{{.PB_BACKEND | default "both"}}" bash ./run-tests.sh
+
+  fasm:
+    desc: Run the complete suite with the fasm backend only
+    cmds:
+      - task: test
+        vars:
+          PB_BACKEND: fasm
+
+  c:
+    desc: Run the complete suite with the C backend only
+    cmds:
+      - task: test
+        vars:
+          PB_BACKEND: c
+
+  x64:
+    desc: Run the complete suite for x64 only (Windows)
+    cmds:
+      - task: test
+        vars:
+          PB_ARCH: x64
+
+  x86:
+    desc: Run the complete suite for x86 only (Windows)
+    cmds:
+      - task: test
+        vars:
+          PB_ARCH: x86
+
+  self:
+    desc: Alias for `task test` (self-tests plus everything else)
+    cmds:
+      - task: test
+
+  clean:
+    desc: Remove generated builds and report files
+    cmds:
+      - cmd: powershell -NoProfile -ExecutionPolicy Bypass -Command "Remove-Item -LiteralPath 'tests/.build' -Recurse -Force -ErrorAction SilentlyContinue"
+        platforms: [windows]
+      - cmd: rm -rf tests/.build
+        platforms: [linux, darwin]

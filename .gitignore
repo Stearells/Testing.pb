@@ -1,0 +1,11 @@
+# Generated build outputs and reports
+tests/.build/
+*.exe
+*.obj
+
+# Reports written by examples and the framework
+testing-results.json
+testing-results.xml
+example-results.json
+example-results.xml
+*.log

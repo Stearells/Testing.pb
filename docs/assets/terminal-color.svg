@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="470"
+     viewBox="0 0 920 470" role="img"
+     aria-label="Colored Testing.pb terminal output with pass, fail, skip and pending results">
+  <defs>
+    <style>
+      .mono { font-family: "Cascadia Mono", "Consolas", "DejaVu Sans Mono", monospace; }
+      .title { font-family: "Segoe UI", "Helvetica Neue", sans-serif; font-size: 13px; fill: #b9b9b9; }
+      .header { font-size: 15px; font-weight: 700; fill: #ffffff; }
+      .text { font-size: 15px; fill: #d4d4d4; }
+      .dim { font-size: 15px; fill: #808080; }
+      .pass { font-size: 15px; font-weight: 700; fill: #3fb950; }
+      .fail { font-size: 15px; font-weight: 700; fill: #f85149; }
+      .skip { font-size: 15px; font-weight: 700; fill: #d29922; }
+      .pend { font-size: 15px; font-weight: 700; fill: #58a6ff; }
+      .expected { font-size: 15px; fill: #7ee787; }
+      .actual { font-size: 15px; fill: #ff7b72; }
+      .result { font-size: 15px; font-weight: 700; fill: #f85149; }
+      .prompt { font-size: 15px; fill: #56b6c2; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="920" height="470" rx="12" fill="#0c0c0c"/>
+  <rect x="1" y="1" width="918" height="468" rx="11" fill="#1b1b1b" stroke="#333333"/>
+
+  <path d="M1 13 A12 12 0 0 1 13 1 H907 A12 12 0 0 1 919 13 V36 H1 Z" fill="#2a2a2a"/>
+  <circle cx="22" cy="19" r="5" fill="#ff5f56"/>
+  <circle cx="40" cy="19" r="5" fill="#ffbd2e"/>
+  <circle cx="58" cy="19" r="5" fill="#27c93f"/>
+  <text x="460" y="24" text-anchor="middle" class="title mono">Testing.pb - Windows Terminal</text>
+
+  <g class="mono">
+    <text x="24" y="67" class="prompt">PS C:\project&gt; .\reports.exe</text>
+    <text x="24" y="93" class="header">Testing.pb 1.0.0</text>
+    <text x="24" y="117" class="header">Suite: ReportSuite</text>
+    <text x="24" y="141" class="dim">--------------------------------------------------------------------------------</text>
+
+    <text x="24" y="167" xml:space="preserve"><tspan class="pass">[PASS]</tspan><tspan class="text"> Addition                                         </tspan><tspan class="dim">    0 ms</tspan></text>
+    <text x="24" y="191" xml:space="preserve"><tspan class="pass">[PASS]</tspan><tspan class="text"> Greeting                                         </tspan><tspan class="dim">    0 ms</tspan></text>
+    <text x="24" y="215" xml:space="preserve"><tspan class="fail">[FAIL]</tspan><tspan class="text"> IntentionalFailure                               </tspan><tspan class="dim">    1 ms</tspan></text>
+    <text x="24" y="239" class="actual">       AssertEqual failed -- "one is not two"</text>
+    <text x="24" y="261" xml:space="preserve"><tspan class="text">       expected: </tspan><tspan class="expected">2</tspan><tspan class="text">, actual: </tspan><tspan class="actual">1</tspan></text>
+    <text x="24" y="283" class="dim">       at failure_expected.pb:20</text>
+
+    <text x="24" y="309" xml:space="preserve"><tspan class="skip">[SKIP]</tspan><tspan class="text"> SkippedByDesign                        </tspan><tspan class="skip">intentional skip</tspan></text>
+    <text x="24" y="333" xml:space="preserve"><tspan class="pend">[PEND]</tspan><tspan class="text"> PendingByDesign                     </tspan><tspan class="pend">intentional pending</tspan></text>
+
+    <text x="24" y="357" class="dim">--------------------------------------------------------------------------------</text>
+    <text x="24" y="381" class="text">Total: 5  Passed: 2  Failed: 1  Skipped: 1  Pending: 1  Errors: 0</text>
+    <text x="24" y="405" class="dim">Time:    0.014s</text>
+    <text x="24" y="431" class="result">RESULT: FAILED (1 failure)</text>
+    <text x="24" y="455" class="prompt">PS C:\project&gt; <tspan class="text">_</tspan></text>
+  </g>
+</svg>
